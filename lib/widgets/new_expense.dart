@@ -1,3 +1,4 @@
+import 'package:expense_tracker/models/expense.dart';
 import 'package:flutter/material.dart';
 
 class NewExpense extends StatefulWidget {
@@ -10,6 +11,23 @@ class NewExpense extends StatefulWidget {
 class _NewExpenseState extends State<NewExpense> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
+  DateTime? _dateSelected;
+
+  _showDatePicker() async {
+    final now = DateTime.now();
+    final firstDate = DateTime(now.year - 1, now.month, now.day);
+
+    final newDate = await showDatePicker(
+      context: context,
+      initialDate: now,
+      firstDate: firstDate,
+      lastDate: now,
+    );
+
+    setState(() {
+      _dateSelected = newDate;
+    });
+  }
 
   @override
   void dispose() {
@@ -49,10 +67,13 @@ class _NewExpenseState extends State<NewExpense> {
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
+                  // crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text('Selected Date'),
+                    Text(_dateSelected == null
+                        ? 'No date selected'
+                        : formatter.format(_dateSelected!)),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: _showDatePicker,
                         icon: const Icon(Icons.calendar_month))
                   ],
                 ),
@@ -76,7 +97,7 @@ class _NewExpenseState extends State<NewExpense> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  print(_titleController.text);
+                  debugPrint(_titleController.text);
                 },
                 child: const Text('Save Expense'),
               ),
