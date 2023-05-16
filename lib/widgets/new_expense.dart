@@ -12,6 +12,7 @@ class _NewExpenseState extends State<NewExpense> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   DateTime? _dateSelected;
+  Category _selectedCategory = Category.work;
 
   _showDatePicker() async {
     final now = DateTime.now();
@@ -27,6 +28,35 @@ class _NewExpenseState extends State<NewExpense> {
     setState(() {
       _dateSelected = newDate;
     });
+  }
+
+  void _submitExpense() {
+    final givenAmount = double.tryParse(_amountController.text);
+    final amountInvalid =
+        givenAmount == null || givenAmount <= 0 ? true : false;
+    debugPrint('cond true $amountInvalid');
+    if (_titleController.text.trim().isEmpty ||
+        amountInvalid ||
+        _dateSelected == null) {
+      debugPrint('cond true');
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Invalid Input'),
+          content: const Text(
+              'Please make sure a valid title, amount & date is provided'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('Okay'),
+            )
+          ],
+        ),
+      );
+      return;
+    }
   }
 
   @override
@@ -84,6 +114,29 @@ class _NewExpenseState extends State<NewExpense> {
             height: 30,
           ),
           Row(
+            children: [
+              DropdownButton(
+                  value: _selectedCategory,
+                  items: Category.values
+                      .map((cat) => DropdownMenuItem(
+                            value: cat,
+                            child: Text(
+                              cat.name.toString(),
+                            ),
+                          ))
+                      .toList(),
+                  onChanged: (val) {
+                    if (val == null) return;
+                    setState(() {
+                      _selectedCategory = val;
+                    });
+                  }),
+            ],
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               ElevatedButton(
@@ -96,9 +149,7 @@ class _NewExpenseState extends State<NewExpense> {
                 width: 20,
               ),
               ElevatedButton(
-                onPressed: () {
-                  debugPrint(_titleController.text);
-                },
+                onPressed: _submitExpense,
                 child: const Text('Save Expense'),
               ),
             ],

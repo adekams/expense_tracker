@@ -27,7 +27,7 @@ class _ExpensesState extends State<Expenses> {
     ),
   ];
 
-  void _addNewExpense() {
+  void _openAddExpenseModal() {
     showModalBottomSheet(
       context: context,
       builder: (ctx) => const NewExpense(),
@@ -41,7 +41,7 @@ class _ExpensesState extends State<Expenses> {
         title: const Text('Flutter Expense Tracker'),
         actions: [
           IconButton(
-            onPressed: _addNewExpense,
+            onPressed: _openAddExpenseModal,
             icon: const Icon(Icons.add),
           )
         ],
