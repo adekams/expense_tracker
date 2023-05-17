@@ -90,7 +90,10 @@ class _ExpensesState extends State<Expenses> {
       ),
       body: Column(
         children: [
-          const Text('Chart'),
+          Text(
+            'Expenses',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
           Expanded(
             child: mainContent,
           ),
