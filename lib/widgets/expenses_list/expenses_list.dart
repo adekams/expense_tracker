@@ -1,4 +1,3 @@
-import 'package:expense_tracker/main.dart';
 import 'package:expense_tracker/models/expense.dart';
 import 'package:expense_tracker/widgets/expenses_list/expense_item.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +17,8 @@ class ExpensesList extends StatelessWidget {
         key: ValueKey(expenses[indx]),
         background: Container(
           color: Theme.of(context).colorScheme.error,
-          margin: EdgeInsets.symmetric(
-              horizontal: Theme.of(context).cardTheme.margin!.horizontal),
+          // margin: EdgeInsets.symmetric(
+          //     horizontal: Theme.of(context).cardTheme.margin!.horizontal),
         ),
         child: ExpenseItem(expenses[indx]),
         onDismissed: (direction) {

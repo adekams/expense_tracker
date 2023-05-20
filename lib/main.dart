@@ -5,7 +5,7 @@ var kColorScheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(255, 18, 221, 194),
 );
 var kDarkColorScheme = ColorScheme.fromSeed(
-  seedColor: Color.fromARGB(255, 14, 17, 15),
+  seedColor: const Color.fromARGB(255, 14, 17, 15),
 );
 void main() {
   runApp(
@@ -13,41 +13,40 @@ void main() {
       darkTheme: ThemeData.dark().copyWith(
         brightness: Brightness.dark,
         useMaterial3: true,
-        colorScheme: kDarkColorScheme,
+        // colorScheme: kDarkColorScheme,
         cardTheme: const CardTheme().copyWith(
           color: kDarkColorScheme.onPrimaryContainer,
           margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
         ),
       ),
       theme: ThemeData().copyWith(
-          useMaterial3: true,
-          colorScheme: kColorScheme,
-          appBarTheme: const AppBarTheme().copyWith(
-            backgroundColor: kColorScheme.onPrimaryContainer,
-            foregroundColor: kColorScheme.secondaryContainer,
+        useMaterial3: true,
+        colorScheme: kColorScheme,
+        appBarTheme: const AppBarTheme().copyWith(
+          backgroundColor: kColorScheme.onPrimaryContainer,
+          foregroundColor: kColorScheme.secondaryContainer,
+        ),
+        cardTheme: const CardTheme().copyWith(
+          color: kColorScheme.primaryContainer,
+          margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: kColorScheme.primaryContainer),
+        ),
+        textTheme: const TextTheme().copyWith(
+          titleLarge: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: kColorScheme.onPrimaryContainer,
           ),
-          cardTheme: const CardTheme().copyWith(
-            color: kColorScheme.primaryContainer,
-            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+          titleMedium: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+            color: kColorScheme.onTertiaryContainer,
           ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-                backgroundColor: kColorScheme.primaryContainer),
-          ),
-          textTheme: const TextTheme().copyWith(
-            titleLarge: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: kColorScheme.onPrimaryContainer,
-            ),
-            titleMedium: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-              color: kColorScheme.onTertiaryContainer,
-            ),
-          )
-          // scaffoldBackgroundColor: const Color.fromARGB(255, 121, 117, 105),
-          ),
-      themeMode: ThemeMode.system,
+        ),
+      ),
+      themeMode: ThemeMode.dark,
       home: const Expenses(),
     ),
   );
